@@ -1,4 +1,4 @@
-package srcs;
+package srcs.entity;
 
 public class Monster {
     

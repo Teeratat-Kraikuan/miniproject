@@ -1,28 +1,25 @@
-import java.util.Scanner;
-
 import srcs.*;
+
+import javax.swing.JFrame;
 
 public class Main {
     public static void main(String[] args) {
-        // Scanner sc = new Scanner(System.in);
 
-        // String filename = "simple";
-        // if (args.length == 1)
-        //     filename = args[0];
+        
+        JFrame window = new JFrame();
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false);
+        window.setTitle("My Game");
+        
+        Map map = new Map("simple");
+        GamePanel gamePanel = new GamePanel(map);
+        window.add(gamePanel);
 
-        // Map map = new Map(filename);
-        new MainScreen();
-        // map.drawMap();
+        window.pack();
 
-        // while (true) {
-        //     String command = sc.nextLine();
-        //     map.map_change(command);
-        //     map.drawMap();
+        window.setLocationRelativeTo(null);
+        window.setVisible(true);
 
-        //     if (map.reachGoal())
-        //         break;
-        // }
-        // System.out.println("Congratulation!!!");
-        // sc.close();
+        gamePanel.startGameThread();
     }
 }
