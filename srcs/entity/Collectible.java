@@ -30,7 +30,7 @@ public class Collectible extends Entity {
     void getCollectibleImage() {
 
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("../../images/collectible/c.png"));
+            up1 = ImageIO.read(getClass().getResourceAsStream("../../images/collectible/banana.png"));
         } catch(IOException e) {
             e.printStackTrace();
         }
