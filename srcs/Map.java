@@ -100,8 +100,7 @@ public class Map {
         String file_path = "maps/" + filename;
 
         try {
-            str = new String(
-                Files.readAllBytes(Paths.get(file_path)));
+            str = new String(Files.readAllBytes(Paths.get(file_path)));
         } 
         catch (IOException e) {
             e.printStackTrace();

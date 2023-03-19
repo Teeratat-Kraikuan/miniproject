@@ -14,7 +14,6 @@ public class Player extends Entity {
     GamePanel gp;
     KeyHandler keyH;
     boolean animating = false;
-    boolean died = false;
     int countItems = 0;
     public int countWalks = 0;
 
@@ -50,20 +49,26 @@ public class Player extends Entity {
             right1 = ImageIO.read(getClass().getResourceAsStream("../../images/player/R1.png"));
             right2 = ImageIO.read(getClass().getResourceAsStream("../../images/player/R2.png"));
             right3 = ImageIO.read(getClass().getResourceAsStream("../../images/player/R3.png"));
+            died1 = ImageIO.read(getClass().getResourceAsStream("../../images/player/Dead_1.png"));
+            died2 = ImageIO.read(getClass().getResourceAsStream("../../images/player/Dead_2.png"));
+            died3 = ImageIO.read(getClass().getResourceAsStream("../../images/player/Dead_3.png"));
+            died4 = ImageIO.read(getClass().getResourceAsStream("../../images/player/Dead_4.png"));
         } catch(IOException e) {
             e.printStackTrace();
         }
     }
     public void update() {
 
-        // Check If died do nothing
-        if (died)
-            return;
+        if (direction == "died" && spriteNum == 4)
+            return ;
 
         // Check Is Player Collide Monster?
         for (int i = 0; i < gp.map.numOfMonsters; i++) {
-            if (x == gp.monster[i].x && y == gp.monster[i].y)
-                died = true;
+            if (x == gp.monster[i].x && y == gp.monster[i].y) {
+                direction = "died";
+                animating = true;
+                spriteNum = 1;
+            }
         }
 
         // Check Exit
@@ -138,23 +143,31 @@ public class Player extends Entity {
 
             if (direction == "up") {
                 realY -= speed;
-                if (realY <= y * gp.tileSize)
+                if (realY <= y * gp.tileSize) {
                     animating = false;
+                    spriteNum = 1;
+                }
             }
             else if (direction == "down") {
                 realY += speed;
-                if (realY >= y * gp.tileSize)
+                if (realY >= y * gp.tileSize) {
                     animating = false;
+                    spriteNum = 1;
+                }
             }
             else if (direction == "left") {
                 realX -= speed;
-                if (realX <= x * gp.tileSize)
+                if (realX <= x * gp.tileSize) {
                     animating = false;
+                    spriteNum = 1;
+                }
             }
             else if (direction == "right") {
                 realX += speed;
-                if (realX >= x * gp.tileSize)
+                if (realX >= x * gp.tileSize){
                     animating = false;
+                    spriteNum = 1;
+                }
             }
 
             spriteCounter++;
@@ -166,7 +179,10 @@ public class Player extends Entity {
                     spriteNum = 3;
                 }
                 else if (spriteNum == 3) {
-                    spriteNum = 1;
+                    if (direction.equals("died"))
+                        spriteNum = 4;
+                    else
+                        spriteNum = 1;
                 }
                 spriteCounter = 0;
             }
@@ -219,6 +235,20 @@ public class Player extends Entity {
                 }
                 if (spriteNum == 3) {
                     image = right3;
+                }
+                break;
+            case "died":
+                if (spriteNum == 1) {
+                    image = died1;
+                }
+                if (spriteNum == 2) {
+                    image = died2;
+                }
+                if (spriteNum == 3) {
+                    image = died3;
+                }
+                if (spriteNum == 4) {
+                    image = died4;
                 }
                 break;
         }
