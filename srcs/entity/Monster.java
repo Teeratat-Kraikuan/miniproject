@@ -50,10 +50,7 @@ public class Monster extends Entity {
 
         if (!animating) {
 
-            System.out.println("Monster number: " + number);
-            System.out.println("randoming");
             int random_number = random();
-            System.out.println("get random is " + random_number);
 
             animating = true;
             if (random_number == 0) {
