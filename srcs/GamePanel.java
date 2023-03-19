@@ -50,11 +50,11 @@ public class GamePanel extends JPanel implements Runnable {
         tileM = new TileManager(this);
         keyH = new KeyHandler();
         player = new Player(this, keyH);
-        exit = new Exit(this);
         monster = new Monster[map.numOfMonsters];
         for (int i = 0; i < map.numOfMonsters; i++) {
             monster[i] = new Monster(this, i);
         }
+        exit = new Exit(this);
         collectible = new Collectible[map.numOfItems];
         for (int i = 0; i < map.numOfItems; i++) {
             collectible[i] = new Collectible(this, i);
@@ -74,6 +74,14 @@ public class GamePanel extends JPanel implements Runnable {
     }
     @Override
     public void run() {
+
+        // Delay to protect race condition.
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
         double drawInterval = 1000000000/FPS;
         double delta = 0;
@@ -96,10 +104,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
     public void update() {
 
+        player.update();
         for (int i = 0; i < map.numOfMonsters; i++) {
             monster[i].update();
         }
-        player.update();
     }
     @Override
     public void paintComponent(Graphics g) {
@@ -113,10 +121,10 @@ public class GamePanel extends JPanel implements Runnable {
         for (int i = 0; i < map.numOfItems; i++) {
             collectible[i].draw(g2);
         }
+        exit.draw(g2);
         for (int i = 0; i < map.numOfMonsters; i++) {
             monster[i].draw(g2);
         }
-        exit.draw(g2);
         player.draw(g2);
 
 
