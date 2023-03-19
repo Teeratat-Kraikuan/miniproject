@@ -1,18 +1,16 @@
 package srcs.tile;
 
-import java.io.IOException;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import javax.imageio.ImageIO;
 
 import srcs.GamePanel;
 
-public class WalkCount extends Tile{
+public class WalkCount {
     
     GamePanel gp;
-    public Tile[] tile;
 
     public WalkCount(GamePanel gp) {
+
         this.gp = gp;
     }
 

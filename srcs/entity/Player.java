@@ -14,6 +14,7 @@ public class Player extends Entity {
     GamePanel gp;
     KeyHandler keyH;
     boolean animating = false;
+    boolean died = false;
     int countItems = 0;
     public int countWalks = 0;
 
@@ -31,7 +32,7 @@ public class Player extends Entity {
         y = gp.map.playerPos[1]; 
         realX = x * gp.tileSize;
         realY = y * gp.tileSize;
-        speed = 2;
+        speed = 3;
         direction = "down";
     }
     public void getPlayerImage() {
@@ -55,6 +56,17 @@ public class Player extends Entity {
     }
     public void update() {
 
+        // Check If died do nothing
+        if (died)
+            return;
+
+        // Check Is Player Collide Monster?
+        for (int i = 0; i < gp.map.numOfMonsters; i++) {
+            if (x == gp.monster[i].x && y == gp.monster[i].y)
+                died = true;
+        }
+
+        // Check Exit
         if (!animating && keyH.enterPressed) {
             
             if (x == gp.exit.x && y == gp.exit.y && countItems == gp.map.numOfItems) {
@@ -63,6 +75,7 @@ public class Player extends Entity {
             }
         }
 
+        // Check Collectible
         if (!animating && keyH.spacePressed) {
 
             for (int i = 0; i < gp.map.numOfItems; i++) {
@@ -74,6 +87,7 @@ public class Player extends Entity {
             }
         }
 
+        // Check Direction and Create Animating
         if (!animating && (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed)) {
 
             animating = true;
@@ -119,6 +133,7 @@ public class Player extends Entity {
             }
         }
         
+        // Animating
         if (animating) {
 
             if (direction == "up") {

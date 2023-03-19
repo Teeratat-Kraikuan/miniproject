@@ -56,6 +56,7 @@ public class Map {
         monsterPos = new int[numOfMonsters][2];
 
         int cI = 0; // collectible Iterator
+        int mI = 0; // monster Iterator
         for (int i = 0; i < m.length; i++) {
             for (int j = 0; j < m[i].length(); j++) {
                 if (m[i].charAt(j) == '0') {
@@ -82,6 +83,9 @@ public class Map {
                 }
                 else if (m[i].charAt(j) == 'M') {
                     map[i][j] = 5;
+                    monsterPos[mI][0] = j;
+                    monsterPos[mI][1] = i;
+                    mI++;
                 }
                 else {
                     Error.invalidMap();

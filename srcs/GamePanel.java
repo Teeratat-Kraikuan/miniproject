@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import srcs.entity.Player;
+import srcs.entity.Monster;
 import srcs.entity.Collectible;
 import srcs.entity.Exit;
 import srcs.tile.TileManager;
@@ -32,6 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
     public TileManager tileM;
     public Exit exit;
     public Collectible[] collectible;
+    public Monster monster[];
     KeyHandler keyH;
     Thread gameThread;
     Player player;
@@ -49,6 +51,10 @@ public class GamePanel extends JPanel implements Runnable {
         keyH = new KeyHandler();
         player = new Player(this, keyH);
         exit = new Exit(this);
+        monster = new Monster[map.numOfMonsters];
+        for (int i = 0; i < map.numOfMonsters; i++) {
+            monster[i] = new Monster(this, i);
+        }
         collectible = new Collectible[map.numOfItems];
         for (int i = 0; i < map.numOfItems; i++) {
             collectible[i] = new Collectible(this, i);
@@ -90,6 +96,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
     public void update() {
 
+        for (int i = 0; i < map.numOfMonsters; i++) {
+            monster[i].update();
+        }
         player.update();
     }
     @Override
@@ -103,6 +112,9 @@ public class GamePanel extends JPanel implements Runnable {
         walkcount.draw(g2, player.countWalks);
         for (int i = 0; i < map.numOfItems; i++) {
             collectible[i].draw(g2);
+        }
+        for (int i = 0; i < map.numOfMonsters; i++) {
+            monster[i].draw(g2);
         }
         exit.draw(g2);
         player.draw(g2);

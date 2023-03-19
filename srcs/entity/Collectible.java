@@ -11,19 +11,21 @@ import srcs.GamePanel;
 public class Collectible extends Entity {
 
     GamePanel gp;
+    int number;
     public boolean collected = false;
     
-    public Collectible(GamePanel gp, int i) {
+    public Collectible(GamePanel gp, int number) {
 
         this.gp = gp;
+        this.number = number;
 
-        setDefaultValues(i);
+        setDefaultValues();
         getCollectibleImage();
     }
-    void setDefaultValues(int i) {
+    void setDefaultValues() {
 
-        x = gp.map.collectiblePos[i][0];
-        y = gp.map.collectiblePos[i][1];
+        x = gp.map.collectiblePos[number][0];
+        y = gp.map.collectiblePos[number][1];
         realX = x * gp.tileSize;
         realY = y * gp.tileSize;
     }
