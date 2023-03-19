@@ -11,7 +11,7 @@ public class Main {
         window.setResizable(false);
         window.setTitle("My Game");
         
-        Map map = new Map("simple");
+        Map map = args.length == 1 ? new Map(args[0]) : new Map("simple");
         GamePanel gamePanel = new GamePanel(map);
         window.add(gamePanel);
 

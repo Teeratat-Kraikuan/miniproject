@@ -15,6 +15,7 @@ public class Player extends Entity {
     KeyHandler keyH;
     boolean animating = false;
     int countItems = 0;
+    public int countWalks = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -79,33 +80,41 @@ public class Player extends Entity {
             if (keyH.upPressed) {
                 direction = "up";
                 y -= 1;
+                countWalks++;
                 if (gp.tileM.mapTiles[y][x].collision) {
                     y += 1;
                     animating = false;
+                    countWalks--;
                 }
             }
             else if (keyH.downPressed) {
                 direction = "down";
                 y += 1;
+                countWalks++;
                 if (gp.tileM.mapTiles[y][x].collision) {
                     y -= 1;
                     animating = false;
+                    countWalks--;
                 }
             }
             else if (keyH.leftPressed) {
                 direction = "left";
                 x -= 1;
+                countWalks++;
                 if (gp.tileM.mapTiles[y][x].collision) {
                     x += 1;
                     animating = false;
+                    countWalks--;
                 }
             }
             else if (keyH.rightPressed) {
                 direction = "right";
                 x += 1;
+                countWalks++;
                 if (gp.tileM.mapTiles[y][x].collision) {
                     x -= 1;
                     animating = false;
+                    countWalks--;
                 }
             }
         }

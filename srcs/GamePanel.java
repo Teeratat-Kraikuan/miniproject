@@ -11,6 +11,7 @@ import srcs.entity.Player;
 import srcs.entity.Collectible;
 import srcs.entity.Exit;
 import srcs.tile.TileManager;
+import srcs.tile.WalkCount;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -34,6 +35,7 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH;
     Thread gameThread;
     Player player;
+    WalkCount walkcount;
 
     public GamePanel(Map map) {
 
@@ -51,6 +53,7 @@ public class GamePanel extends JPanel implements Runnable {
         for (int i = 0; i < map.numOfItems; i++) {
             collectible[i] = new Collectible(this, i);
         }
+        walkcount = new WalkCount(this);
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
@@ -97,11 +100,13 @@ public class GamePanel extends JPanel implements Runnable {
         Graphics2D g2 = (Graphics2D)g;
 
         tileM.draw(g2);
+        walkcount.draw(g2, player.countWalks);
         for (int i = 0; i < map.numOfItems; i++) {
             collectible[i].draw(g2);
         }
         exit.draw(g2);
         player.draw(g2);
+
 
         g2.dispose();
     }
