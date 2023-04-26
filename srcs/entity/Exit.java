@@ -29,7 +29,7 @@ public class Exit extends Entity {
     void getExitImage() {
 
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("../../images/exit/chests.png"));
+            up1 = ImageIO.read(getClass().getResourceAsStream("../../images/exit/door.png"));
         } catch(IOException e) {
             e.printStackTrace();
         }
